@@ -1,0 +1,8 @@
+{
+  "name": "warbot-js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Chipsnet/warbot-js.git",
+  "author": "Minato86 <doronomori660@outlook.jp>",
+  "license": "MPL-2.0"
+}
