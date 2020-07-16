@@ -1,7 +1,8 @@
 const yaml = require("js-yaml");
 const fs = require("fs");
 const bunyan = require("bunyan");
-const colors = require("colors");
+const os = require("os");
+require("colors");
 
 const PACKAGE_JSON = require("./package.json");
 
@@ -13,6 +14,7 @@ const run = async () => {
     return config;
 };
 
+// bootlog
 const bLog = (message) => {
     console.log(`[Boot]: ` + message);
 };
@@ -25,7 +27,7 @@ console.log(
 |__/|__/_/  |_/_/ |_/_____/\\____/\\__(_)_/ /____/  
                                      /___/        
 v${PACKAGE_JSON.version}
-Developed by Minami Minami
+Developed by Minato Minami
 
 If you like this bot, please donate me on ko-fi!
 https://ko-fi.com/minato86\n`.yellow
@@ -50,7 +52,7 @@ try {
     }
 }
 
-bLog('Logging start.'.cyan)
+bLog("Logging start.".cyan);
 
 // ログの設定
 const log = bunyan.createLogger({
@@ -68,6 +70,11 @@ const log = bunyan.createLogger({
     ],
 });
 
-log.info("Starting bots..");
-
+log.info("Starting bots...");
+log.debug("Getting system info...")
+log.debug(`Version: ${PACKAGE_JSON.version}`);
+log.debug(`OS: ${os.type()} ${os.release()}`);
+log.debug(`Arch: ${os.arch()}`)
+log.debug(`RAM(Free/Total): ${os.freemem()}/${os.totalmem()}`)
+log.debug(`CPU: ${os.cpus()[0]["model"]}`)
 // run().then((config) => log.debug("debug: ", config));
