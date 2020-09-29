@@ -14,6 +14,6 @@
   "scripts": {
     "start": "node index.js | bunyan -l info",
     "dev": "node index.js | bunyan -l debug",
-    "log": "cat ./log/app.log | bunyan"
+    "log": "type ./log/app.log | bunyan"
   }
 }
