@@ -74,6 +74,7 @@ const log = bunyan.createLogger({
 log.info("Starting bots...");
 log.debug("Getting system info...");
 log.debug(`Version: ${PACKAGE_JSON.version}`);
+log.debug(`Node.js Version: ${process.versions.node}`);
 log.debug(`OS: ${os.type()} ${os.release()}`);
 log.debug(`Arch: ${os.arch()}`);
 log.debug(`RAM(Free/Total): ${os.freemem()}/${os.totalmem()}`);

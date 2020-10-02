@@ -1,10 +1,13 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const PACKAGE_JSON = require("../package.json");
+const os = require("os");
 
 module.exports = class {
     constructor(log, config) {
         this.log = log;
         this.config = config;
+        this.version = PACKAGE_JSON.version
 
         this.keywords = {
             "/naki": "Nakiました",
@@ -36,17 +39,23 @@ module.exports = class {
                     this.replyMessage({embed: {
                         title: "💭 WARBot Help",
                         description: "コマンド・反応する単語一覧を表示します。\nWARBotについてもっと知りたい場合は `/about` を実行してください。",
+                        timestamp: new Date(),
+                        footer: {
+                            text: "WARbot developed with ❤ by 巳波みなと"
+                        },
                         fields: [
                             {
                                 name: "一般コマンド",
                                 value: '```'+
-                                '/about: このBotに関する情報を表示します\n'+
-                                '/help: コマンド一覧を表示します'+
+                                `${this.config.prefix}about: このBotに関する情報を表示します\n`+
+                                `${this.config.prefix}help: コマンド一覧を表示します`+
                                 '```'
                             },
                             {
                                 name: "限界大会関連コマンド",
-                                value: '```準備中```'
+                                value: '```'+
+                                this.config.prefix+'genkai help: 限界大会関連コマンドの一覧を表示します'+
+                                '```'
                             },
                             {
                                 name: "反応する単語",
@@ -56,6 +65,72 @@ module.exports = class {
                             }
                         ]
                     }})
+                }
+
+                if (commands[0] === 'about') {
+                    this.replyMessage({embed: {
+                        title: "💻 WARBot About",
+                        description: "WARBotをご利用頂きありがとうございます！\nWARBotは[巳波みなと](https://minato86.me)により運営されているDiscordBotです！",
+                        timestamp: new Date(),
+                        footer: {
+                            text: "WARbot developed with ❤ by 巳波みなと"
+                        },
+                        fields: [
+                            {
+                                name: "Version",
+                                value: `WARBot v${this.version}`,
+                                inline: true
+                            },
+                            {
+                                name: "Prefix",
+                                value: `${this.config.prefix}`,
+                                inline: true
+                            },
+                            {
+                                name: "ServerOS",
+                                value: `${os.type()} ${os.release()}`,
+                                inline: true
+                            },
+                            {
+                                name: "ServerCPU",
+                                value: `${os.cpus()[0]["model"]}`
+                            },
+                            {
+                                name: "Node.js Version",
+                                value: `${process.versions.node}`
+                            },
+                            {
+                                name: "Source",
+                                value: 'このBotはオープンソースソフトウェアです\n'+
+                                'https://github.com/Chipsnet/warbot-js'
+                            },
+                            {
+                                name: "Changelog",
+                                value: 'https://github.com/Chipsnet/warbot-js/releases'
+                            }
+                        ]
+                    }})
+                }
+
+                if (commands[0] === "genkai") {
+                    if (commands[1] === "help") {
+                        this.replyMessage({embed: {
+                            title: "📌 限界大会 Help",
+                            description: "限界大会関連のコマンド一覧です。限界大会サーバーでのみ使用できるコマンドもあります。",
+                            timestamp: new Date(),
+                            footer: {
+                                text: "WARbot developed with ❤ by 巳波みなと"
+                            },
+                            fields: [
+                                {
+                                    name: "コマンド一覧",
+                                    value: '```\n'+
+                                    `${this.config.prefix}genkai help: コマンド一覧を表示します\n`+
+                                    '```',
+                                }
+                            ]
+                        }})
+                    }
                 }
             }
         });
