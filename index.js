@@ -3,17 +3,16 @@ const fs = require("fs");
 const bunyan = require("bunyan");
 const os = require("os");
 require("colors");
-const Discord = require("discord.js");
-const client = new Discord.Client();
+const Main = require("./bot/main.js");
 
 const PACKAGE_JSON = require("./package.json");
 
-const run = async () => {
+const getConfig = async () => {
     let config = yaml.safeLoad(
         fs.readFileSync("./config/default.yml", "utf-8")
     );
 
-    client.login(config.token);
+    return config;
 };
 
 // bootlog
@@ -72,16 +71,6 @@ const log = bunyan.createLogger({
     ],
 });
 
-client.on("ready", () => {
-    log.debug(`Logged in as ${client.user.tag}!`);
-});
-
-client.on("message", (msg) => {
-    if (msg.content === "ping") {
-        msg.reply("Pong!");
-    }
-});
-
 log.info("Starting bots...");
 log.debug("Getting system info...");
 log.debug(`Version: ${PACKAGE_JSON.version}`);
@@ -89,4 +78,9 @@ log.debug(`OS: ${os.type()} ${os.release()}`);
 log.debug(`Arch: ${os.arch()}`);
 log.debug(`RAM(Free/Total): ${os.freemem()}/${os.totalmem()}`);
 log.debug(`CPU: ${os.cpus()[0]["model"]}`);
-run().then((config) => log.debug("debug: ", config));
+
+getConfig().then((config) => {
+    log.info('Config load successfully. Starting bot system.')
+    log.debug(`Prefix: ${config.prefix}`);
+    new Main(log, config)
+});
