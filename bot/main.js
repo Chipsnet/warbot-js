@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const PACKAGE_JSON = require("../package.json");
+const genkaijs = require("./genkai.js")
 const os = require("os");
 
 module.exports = class {
@@ -8,6 +9,7 @@ module.exports = class {
         this.log = log;
         this.config = config;
         this.version = PACKAGE_JSON.version
+        this.genkai = new genkaijs(this.log)
 
         this.keywords = {
             "/naki": "Nakiました",

@@ -9,7 +9,7 @@ const PACKAGE_JSON = require("./package.json");
 
 const getConfig = async () => {
     let config = yaml.safeLoad(
-        fs.readFileSync("./config/default.yml", "utf-8")
+        fs.readFileSync("./default.yml", "utf-8")
     );
 
     return config;
