@@ -18,6 +18,6 @@
     "dev": "nodemon index.js | bunyan -l debug",
     "start": "node index.js | bunyan -l info",
     "log-stream": "tail -f ./log/app.log | bunyan -l debug",
-    "log": "cat -f ./log/app.log | bunyan -l debug"
+    "log": "cat ./log/app.log | bunyan -l debug"
   }
 }
