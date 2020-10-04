@@ -72,7 +72,7 @@ module.exports = class {
                 if (commands[0] === 'about') {
                     this.replyMessage({embed: {
                         title: "💻 WARBot About",
-                        description: "WARBotをご利用頂きありがとうございます！\nWARBotは[巳波みなと](https://minato86.me)により運営されているDiscordBotです！",
+                        description: "WARBotをご利用頂きありがとうございます！\nWARBotは[巳波みなと](https://minato86.me)により開発されているDiscordBotです！",
                         timestamp: new Date(),
                         footer: {
                             text: "WARbot developed with ❤ by 巳波みなと"
