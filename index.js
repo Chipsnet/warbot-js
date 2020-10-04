@@ -8,9 +8,14 @@ const Main = require("./bot/main.js");
 const PACKAGE_JSON = require("./package.json");
 
 const getConfig = async () => {
-    let config = yaml.safeLoad(
-        fs.readFileSync("./default.yml", "utf-8")
-    );
+    let config = yaml.safeLoad(() => {
+        try {
+            fs.readFileSync("./default.yml", "utf-8")
+        } catch (error) {
+            log.fatal('Config file not found. Please make config file. More information: https://github.com/Chipsnet/warbot-js.')
+            process.exit(0)
+        }
+    });
 
     return config;
 };
