@@ -9,7 +9,7 @@ module.exports = class {
         this.log = log;
         this.config = config;
         this.version = PACKAGE_JSON.version
-        this.genkai = new genkaijs(this.log)
+        this.genkai = new genkaijs(this.log, this.config)
 
         this.keywords = {
             "/naki": "Nakiました",

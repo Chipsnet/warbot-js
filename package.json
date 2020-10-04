@@ -10,13 +10,13 @@
     "colors": "^1.4.0",
     "discord.js": "^12.2.0",
     "js-yaml": "^3.14.0",
-    "lokijs": "^1.5.11",
     "nodemon": "^2.0.4",
+    "pg": "^8.3.3",
     "pm2": "^4.5.0"
   },
   "scripts": {
     "dev": "nodemon index.js | bunyan -l debug",
-    "start": "pm2 start index.js --name warbot",
+    "start:linux": "node index.js",
     "log-stream": "pm2 log --raw warbot | bunyan -l debug",
     "log:linux": "cat ./log/app.log | bunyan"
   }
