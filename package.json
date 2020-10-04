@@ -16,7 +16,7 @@
   },
   "scripts": {
     "dev": "nodemon index.js | bunyan -l debug",
-    "start:linux": "node index.js",
+    "start": "node index.js",
     "log-stream": "pm2 log --raw warbot | bunyan -l debug",
     "log:linux": "cat ./log/app.log | bunyan"
   }
