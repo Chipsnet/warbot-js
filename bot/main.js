@@ -102,6 +102,10 @@ module.exports = class {
                                 value: `${process.versions.node}`
                             },
                             {
+                                name: "Host",
+                                value: `${os.hostname()}`
+                            },
+                            {
                                 name: "Source",
                                 value: 'このBotはオープンソースソフトウェアです\n'+
                                 'https://github.com/Chipsnet/warbot-js'
