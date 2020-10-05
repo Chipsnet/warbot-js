@@ -1,7 +1,8 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const PACKAGE_JSON = require("../package.json");
-const genkaijs = require("./genkai.js");
+const database = require("./detabase.js");
+const point = require("./point.js");
 const os = require("os");
 
 module.exports = class {
@@ -9,7 +10,8 @@ module.exports = class {
         this.log = log;
         this.config = config;
         this.version = PACKAGE_JSON.version;
-        this.genkai = new genkaijs(this.log, this.config);
+        this.database = new database(this.log, this.config);
+        this.point = new point(this.log, this.database);
 
         this.keywords = {
             "/naki": "Nakiました",
@@ -40,6 +42,10 @@ module.exports = class {
                 this.replyMessage(this.keywords[msg.content.toLowerCase()]);
             }
 
+            if (msg.content === "やったぜ") {
+                this.point.addPoints(msg).then(res => this.replyMessage(res))
+            }
+
             if (msg.content.startsWith(this.config.prefix)) {
                 const commands = msg.content
                     .slice(this.config.prefix.length)
@@ -50,7 +56,7 @@ module.exports = class {
                         embed: {
                             title: "💭 WARBot Help",
                             description:
-                                "コマンド・反応する単語一覧を表示します。\nWARBotについてもっと知りたい場合は `/about` を実行してください。",
+                                "コマンド・反応する単語一覧を表示します。\nWARBotについてもっと知りたい場合は `"+this.config.prefix+"about` を実行してください。",
                             timestamp: new Date(),
                             footer: {
                                 text: "WARbot developed with ❤ by 巳波みなと",
@@ -61,7 +67,9 @@ module.exports = class {
                                     value:
                                         "```" +
                                         `${this.config.prefix}about: このBotに関する情報を表示します\n` +
-                                        `${this.config.prefix}help: コマンド一覧を表示します` +
+                                        `${this.config.prefix}help: コマンド一覧を表示します\n` +
+                                        `${this.config.prefix}point check: 現在のポイント数を表示します\n` +
+                                        `やったぜ: ポイントを獲得します` +
                                         "```",
                                 },
                                 {
@@ -82,6 +90,12 @@ module.exports = class {
                             ],
                         },
                     });
+                }
+
+                if (commands[0] === "point") {
+                    if (commands[1] === "check") {
+                        this.point.checkPoint(msg).then(res => this.replyMessage(res))
+                    }
                 }
 
                 if (commands[0] === "about") {
