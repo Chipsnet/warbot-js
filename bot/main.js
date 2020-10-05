@@ -3,6 +3,8 @@ const client = new Discord.Client();
 const PACKAGE_JSON = require("../package.json");
 const database = require("./detabase.js");
 const point = require("./point.js");
+const moment = require("moment");
+moment.locale('ja')
 const os = require("os");
 
 module.exports = class {
@@ -51,6 +53,10 @@ module.exports = class {
                     .slice(this.config.prefix.length)
                     .split(" ");
 
+                if (commands[0] === "now") {
+                    this.replyMessage(`⌚ 現在時刻は ${moment().format('llll')} です`)
+                }
+
                 if (commands[0] === "help") {
                     this.replyMessage({
                         embed: {
@@ -69,6 +75,7 @@ module.exports = class {
                                         `${this.config.prefix}about: このBotに関する情報を表示します\n` +
                                         `${this.config.prefix}help: コマンド一覧を表示します\n` +
                                         `${this.config.prefix}point check: 現在のポイント数を表示します\n` +
+                                        `${this.config.prefix}now: 現在時刻を取得します\n` +
                                         `やったぜ: ポイントを獲得します` +
                                         "```",
                                 },
