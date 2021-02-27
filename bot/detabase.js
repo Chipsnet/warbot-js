@@ -4,8 +4,6 @@ module.exports = class {
     constructor(log, config) {
         this.config = config;
         this.log = log;
-
-        this.connect();
     }
 
     connect() {

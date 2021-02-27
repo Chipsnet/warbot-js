@@ -3,6 +3,7 @@ const client = new Discord.Client();
 const PACKAGE_JSON = require("../package.json");
 const database = require("./detabase.js");
 const point = require("./point.js");
+const genkai = require("./genkai.js");
 const moment = require("moment");
 moment.locale('ja')
 const os = require("os");
@@ -12,8 +13,13 @@ module.exports = class {
         this.log = log;
         this.config = config;
         this.version = PACKAGE_JSON.version;
+
         this.database = new database(this.log, this.config);
+        this.database.connect()
+
         this.point = new point(this.log, this.database);
+        this.genkai = new genkai(this.log, this.database, this.config);
+        this.genkai.schedule()
 
         this.keywords = {
             "/naki": "Nakiました",
