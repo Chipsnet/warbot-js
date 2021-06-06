@@ -24,6 +24,6 @@
     "log": "cat ./log/app.log | bunyan -l debug"
   },
   "devDependencies": {
-    "typescript": "4.2.2"
+    "typescript": "4.3.2"
   }
 }
