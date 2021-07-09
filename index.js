@@ -10,11 +10,12 @@ const PACKAGE_JSON = require("./package.json");
 const getConfig = async () => {
     let config
     try {
-        config = yaml.safeLoad(
+        config = yaml.load(
             fs.readFileSync("./default.yml", "utf-8")
         );
     } catch (error) {
         log.fatal('Config file not found. Please make config file. More information: https://github.com/Chipsnet/warbot-js.')
+        log.error(error);
         process.exit(0)
     }
 
